@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "OpenHands Side Panel",
+  "version": "1.0.0",
+  "description": "Drive an app.all-hands.dev (OpenHands Cloud) conversation from Chrome's side panel. Sends once through the site's own composer and captures the matching reply. No API client, no manual fallback.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "sidePanel",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://app.all-hands.dev/*"
+  ],
+  "background": {
+    "service_worker": "worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "OpenHands Side Panel · 1.0.0",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; img-src 'self' blob: data:; style-src 'self'"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.all-hands.dev/*"
+      ],
+      "js": [
+        "attachment-policy.js",
+        "agent-dom.js",
+        "agent-content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

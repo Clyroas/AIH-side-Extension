@@ -1,0 +1,22 @@
+{
+  "name": "openhands-side-panel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev tooling for the OpenHands Side Panel Chrome extension. The extension itself has no runtime dependencies and is loaded unpacked.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "check": "npm run lint && npm test",
+    "icons": "node scripts/make-icons.mjs",
+    "package:extension": "node scripts/package-extension.mjs",
+    "preview": "node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "jsdom": "^25.0.1"
+  }
+}
