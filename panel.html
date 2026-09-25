@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OpenHands Side Panel · 1.0.0</title><link rel="stylesheet" href="panel.css"><script src="theme.js"></script><script src="customization.js"></script></head>
+<body data-sheet="open">
+<div class="app">
+<header id="toolbar" class="toolbar glass">
+<div class="toolbar-row">
+<div class="brand-icon" aria-hidden="true"><span>OH</span></div>
+<div class="toolbar-title"><h1>OpenHands Side Panel</h1><p><strong id="version">v1.0.0</strong><span class="dot-sep" aria-hidden="true">·</span><span id="turn-count">0 turns</span></p></div>
+<button id="status-pill" class="status-pill" type="button" aria-controls="settings-sheet" title="Connection settings"><span class="status-dot" aria-hidden="true"></span><span id="status" class="status" role="status">Disconnected</span></button>
+<button id="settings-button" class="toolbar-button" type="button" title="Settings" aria-label="Settings" aria-controls="settings-sheet" aria-expanded="true"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M4.7 15.3l1.4-1.4M13.9 6.1l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+</div>
+<div id="notice" class="notice" role="status" aria-live="polite" hidden><span id="notice-text" class="notice-text"></span><button id="notice-minimize" class="notice-minimize" type="button" title="Minimize this message to a dot" aria-label="Minimize message"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></div>
+</header>
+
+<div id="agent-bar" class="agent-bar" hidden>
+<div class="agent-bar-text">
+<p id="site-name" class="site-name">OpenHands</p>
+<p id="site-status" class="site-status" role="status" aria-live="polite"></p>
+</div>
+<div class="agent-bar-actions">
+<button id="stop-agent" type="button" class="capsule-button danger" hidden title="Click OpenHands' own Stop control once">Stop agent</button>
+<button id="resume-agent" type="button" class="capsule-button" hidden title="Click OpenHands' own Play control once">Resume agent</button>
+<button id="open-conversation" type="button" class="capsule-button" hidden title="Bring the connected OpenHands tab to the front">Open tab ↗</button>
+</div>
+</div>
+
+<section id="message-area" class="message-area" aria-labelledby="draft-title">
+<h2 id="draft-title" class="sr-only">Message OpenHands</h2>
+<div class="transcript-shell">
+<div id="chat-scroll" class="chat-scroll" role="region" aria-label="Conversation" tabindex="0"><div class="chat-column">
+<div id="history-import" class="history-import" hidden><button id="load-history" type="button" class="capsule-button">Load earlier messages</button><span id="history-import-note" class="history-import-note"></span></div>
+<div id="chat-empty" class="chat-empty"><div class="empty-orb" aria-hidden="true"></div><h3>Drive OpenHands from here</h3><p id="empty-help">Connect your signed-in OpenHands tab (the launcher or a conversation) to start driving it from here.</p><button id="empty-connect" type="button" class="capsule-button tinted">Set up connection</button></div>
+<section id="history-section" hidden aria-label="Prompts and replies"><div id="history"></div></section>
+<section id="pending" class="pending-reply" hidden aria-labelledby="pending-title"><div class="pending-heading"><span class="pending-dot" aria-hidden="true"></span><h3 id="pending-title">OpenHands is working</h3><span id="live-elapsed" class="live-elapsed"></span></div><p id="live-detail" class="live-detail"></p><p id="progress" class="hint" role="status"></p><div class="pending-actions"><button id="cancel" type="button" class="capsule-button cancel">Stop tracking</button><p class="hint">Stops local tracking only. The task keeps running in OpenHands unless you stop the agent.</p></div></section>
+</div></div>
+<button id="latest-reply" class="latest-reply glass" hidden type="button" aria-label="Jump to the latest messages">Latest reply ↓</button>
+</div>
+<div class="composer-dock">
+<button id="notice-dot" class="notice-dot" type="button" hidden title="Show the latest message" aria-label="Show the latest message"><span aria-hidden="true"></span></button>
+<section id="confirm-bar" class="confirm-bar" hidden aria-labelledby="confirm-bar-title">
+<h3 id="confirm-bar-title">OpenHands is asking for a confirmation</h3>
+<p id="confirm-bar-prompt" class="confirm-bar-prompt"></p>
+<p id="confirm-bar-risk" class="confirm-bar-risk" hidden>OpenHands marks this action High Risk. Review carefully before proceeding.</p>
+<div class="confirm-bar-actions"><button id="confirm-bar-yes" type="button" class="capsule-button danger">Confirm action</button><button id="confirm-bar-no" type="button" class="capsule-button">Reject action</button></div>
+<p id="confirm-bar-status" class="hint" role="status">One click, one direction. Nothing is confirmed for you.</p>
+</section>
+<div class="oh-composer glass"><label for="prompt" class="sr-only">Your message</label>
+<div id="attachments" class="attachments" hidden><div id="attachment-chips" class="attachment-chips" aria-label="Staged attachments"></div><p id="attachment-help" class="attachment-help">Paste an image (Ctrl+V), drop files, or attach — max 8 files, 3 MB each and 3 MB combined, which is what OpenHands itself allows. Files stay in memory and travel only with your explicit Send.</p><p id="attachment-status" class="attachment-status" role="status" aria-live="polite"></p></div>
+<div class="composer-row"><input id="attachment-input" class="file-input" type="file" multiple tabindex="-1" aria-hidden="true"><button id="attach-files" class="composer-icon attach-button" type="button" title="Attach images or files from your computer" aria-label="Attach images or files from your computer" disabled><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M15.5 9.5l-5.6 5.6a3.5 3.5 0 0 1-5-5l6-6a2.3 2.3 0 0 1 3.3 3.3l-6 6a1.2 1.2 0 0 1-1.7-1.7l5.5-5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><textarea id="prompt" aria-describedby="composer-help" rows="1" maxlength="30000" placeholder="Connect your OpenHands tab to start…" disabled></textarea><button id="prepare" class="primary send-button" disabled>Send to OpenHands</button></div>
+<p id="prompt-count" class="prompt-count" role="status" aria-live="polite" hidden></p></div>
+<p id="composer-help" class="composer-note">Enter to send · Shift+Enter for a new line · paste or drop files · exactly one Send click, no retries</p>
+</div>
+<p id="chat-announcement" class="sr-only" role="status" aria-live="polite"></p>
+</section>
+</div>
+
+<div id="sheet-backdrop" class="sheet-backdrop" aria-hidden="true"></div>
+<section id="settings-sheet" class="sheet glass" role="dialog" aria-modal="true" aria-labelledby="sheet-title" data-open="true">
+<div class="sheet-grabber" aria-hidden="true"></div>
+<div class="sheet-header"><h2 id="sheet-title">Settings</h2><button id="sheet-done" type="button" class="sheet-done">Done</button></div>
+<div class="sheet-body">
+<h3 class="group-title">Connection</h3>
+<section class="connection-shell" aria-label="OpenHands connection">
+<details id="connection-details" class="group connection-card" open>
+<summary class="connection-summary"><span><span class="connection-eyebrow">OpenHands tab · app.all-hands.dev</span><span id="connection-summary-text">Choose your OpenHands tab</span></span></summary>
+<div class="connection-body">
+<p class="hint connection-intro">This panel drives a signed-in OpenHands Cloud tab through its own page: it types into the site's message box and clicks the site's Send control exactly once. There is no API key, no credential access and no manual paste fallback — if the page cannot be driven, the panel says why and stops.</p>
+<label for="tabs" class="field-label">OpenHands tab</label><div class="select-row"><select id="tabs"><option value="">Looking for OpenHands tabs…</option></select><button id="refresh" class="icon-button" type="button" title="Refresh tabs" aria-label="Refresh tabs">↻</button></div>
+<label class="check"><input id="confirmed" type="checkbox" class="switch"><span>This is my signed-in <strong>app.all-hands.dev</strong> tab, on the launcher or the conversation I want to drive.</span></label>
+<label class="check"><input id="authorize" type="checkbox" class="switch"><span>I understand OpenHands Cloud restricts automated access and I have appropriate authorization to drive this conversation from an extension.</span></label>
+<p class="hint">This checkbox does not grant permission from All Hands AI. It records that you chose to drive your own signed-in session.</p>
+<div class="button-row mode-actions"><button id="connect" class="primary" disabled>Connect &amp; check controls</button><button id="open" type="button">Open launcher ↗</button><button id="open-list" type="button">Open conversation list ↗</button></div>
+<div id="connection-escape" class="button-row" hidden><button id="connection-focus" type="button">Open OpenHands tab</button><button id="connection-cancel" type="button">Cancel connection</button></div>
+<div id="connection-info"><p id="tab-name" class="tab-name"></p><p id="tab-url" class="tab-url"></p><p id="adapter-state" class="hint" role="status"></p></div>
+</div></details>
+<div id="connected" class="group list-group connection-actions" hidden><div class="list-row list-info"><span>Connected tab</span><span id="connected-tab-short" class="tab-chip"></span></div><button id="focus" type="button" class="list-row list-button">Go to OpenHands tab <span aria-hidden="true">↗</span></button><button id="reconnect" type="button" class="list-row list-button">Reconnect</button><button id="disconnect" type="button" class="list-row list-button destructive">Disconnect</button></div>
+</section>
+
+<h3 class="group-title">Appearance</h3>
+<div class="group list-group">
+<div class="theme-bar list-row"><label for="theme-select">Theme</label><select id="theme-select" aria-label="Panel theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
+<details id="customization" class="customization"><summary class="list-row">Text size &amp; accent</summary><div class="customization-body"><div class="customization-grid"><label for="font-size" class="field-label">Chat text size<select id="font-size"><option value="12">Small · 12 px</option><option value="13">Compact · 13 px</option><option value="14">Default · 14 px</option><option value="16">Large · 16 px</option><option value="18">Extra large · 18 px</option></select></label><label for="accent-color" class="field-label">Accent color<select id="accent-color"><option value="slate">Slate</option><option value="teal">Teal</option><option value="violet">Purple</option><option value="amber">Orange</option></select></label></div><button id="reset-appearance" type="button" class="text-button">Reset text &amp; color</button><p id="appearance-status" class="hint" role="status">Appearance preferences only — conversations are never saved.</p></div></details>
+</div>
+<p id="theme-status" class="sr-only" role="status" aria-live="polite"></p>
+
+<h3 class="group-title">Help &amp; privacy</h3>
+<div class="group about-group">
+<details class="help"><summary class="list-row">If no reply appears</summary><div class="help-body"><p>The panel always shows a specific coded reason instead of asking you to paste a reply.</p><ul><li><strong>No adapter:</strong> Connect attaches the page adapter automatically. If Chrome blocks it, check this extension's Details → Site access for https://app.all-hands.dev and reconnect.</li><li><strong>Control not found:</strong> the launcher and conversation pages are supported; settings, automations, MCP, skills and shared conversations have no chat to drive. If the site's markup moved, the capability line in Settings names the missing control.</li><li><strong>Verification:</strong> if OpenHands shows a security check, complete it in the tab. Tracking pauses and resumes on its own once it passes — nothing is resent and nothing is bypassed.</li><li><strong>Rate limit:</strong> follow the wait time OpenHands shows; capture stops rather than retrying.</li><li><strong>Confirmation:</strong> an action confirmation blocks Send until you answer it, here or in the tab. High-risk actions are never confirmed for you.</li><li><strong>Paused agent:</strong> tracking is held, not stopped. Resume the agent here or in the tab and capture continues.</li><li><strong>Timed out or ambiguous:</strong> inspect OpenHands before resending — the message may already have been accepted.</li></ul><p>Staged files are placed into the OpenHands composer immediately before your one Send click. Tool approvals, workspace settings and anything the adapter does not recognize stay in the OpenHands tab. Live text and step labels are previews, not the finished answer.</p></div></details>
+<footer><p><span class="privacy-dot"></span>Chat stays in memory · no API key · no credential access · no network calls</p><p>Only theme, text size and accent are saved. Closing the side panel or disconnecting clears its transcript; your OpenHands conversation is untouched. OpenHands may continue a task already sent.</p><p>If you see a <strong>Copy prompt</strong> button or a reply-paste box, you have opened an older extension — not this automatic-only edition.</p><a href="https://docs.all-hands.dev/" target="_blank" rel="noopener noreferrer">OpenHands documentation ↗</a></footer>
+</div>
+</div>
+</section>
+<dialog id="confirm-dialog"><h2 id="dialog-title">Clear this session?</h2><p id="dialog-description"></p><div class="button-row"><button id="dialog-cancel">Keep session</button><button id="dialog-ok" class="primary">Continue</button></div></dialog>
+<script type="module" src="panel.js"></script></body></html>

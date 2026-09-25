@@ -1,0 +1,5 @@
+# Dev tooling output. The extension itself is loaded unpacked from the repository root.
+node_modules/
+dist/
+npm-debug.log*
+.DS_Store

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Motion preview · OpenHands Side Panel (dev)</title>
+  <style>
+    /* Dev chrome only. The real panel's stylesheet is loaded by the injected markup below. */
+    :root { color-scheme: light dark; --dev-bg: rgba(28, 28, 30, .82); }
+    body { margin: 0; height: 100vh; overflow: hidden; background: #fbfbfd; font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+    #dev-bar {
+      position: fixed; z-index: 999; left: 50%; top: 8px; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 4px; padding: 4px 6px; border-radius: 999px;
+      background: var(--dev-bg); color: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, .28);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); max-width: calc(100vw - 16px);
+      flex-wrap: wrap; justify-content: center;
+    }
+    #dev-bar button {
+      all: unset; cursor: pointer; padding: 4px 9px; border-radius: 999px; font-size: 11.5px;
+      font-weight: 500; white-space: nowrap; background: rgba(255, 255, 255, .12);
+      transition: background .15s, transform .12s;
+    }
+    #dev-bar button:hover { background: rgba(255, 255, 255, .24); }
+    #dev-bar button:active { transform: scale(.95); }
+    #dev-bar button[data-active="true"] { background: #0a84ff; }
+    #dev-bar .dev-label { font-size: 11px; opacity: .7; padding: 0 4px; }
+    #dev-log {
+      position: fixed; z-index: 998; left: 8px; bottom: 8px; max-width: 46vw;
+      font: 11px/1.45 ui-monospace, Menlo, monospace; color: rgba(255, 255, 255, .72);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .5); pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="dev-bar">
+    <span class="dev-label">Motion preview</span>
+    <button data-act="tour" data-active="true">Tour</button>
+    <button data-act="reply">Reply arrives</button>
+    <button data-act="steps">Action steps</button>
+    <button data-act="confirm">Confirmation</button>
+    <button data-act="paused">Agent paused</button>
+    <button data-act="security">Verification hold</button>
+    <button data-act="error">OpenHands error</button>
+    <button data-act="attach">Staged file</button>
+    <button data-act="history">Earlier turns</button>
+  </div>
+  <div id="dev-log" aria-live="off"></div>
+  <script type="module" src="preview.js"></script>
+</body>
+</html>
